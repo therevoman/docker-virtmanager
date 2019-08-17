@@ -35,7 +35,6 @@ RUN apk --update --upgrade add \
     virt-manager \
     openssh \
     openssh-askpass \
-    openssh-client \
 #    razorqt-openssh-askpass \
 #    x11-ssh-askpass \
 #    ssh-askpass \
@@ -49,20 +48,13 @@ RUN git clone https://github.com/kanaka/noVNC.git /root/noVNC \
 	&& rm -rf /root/noVNC/utils/websockify/.git \
 	&& apk del git
 
-ADD etc /etc
-ADD .xinitrc /root
-ADD .ssh /root
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Modify the launch script 'ps -p'
-#RUN sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh
+RUN sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh
 
-# Autostart firefox (might not be the best way to do it, but it does the trick)
-#RUN     sh -c 'echo "exec openbox-session &" >> ~/.xinitrc' && \
-#        sh -c 'echo "virt-manager" >> ~/.xinitrc' && \
-#        sh -c 'chmod 755 ~/.xinitrc' 
-
-EXPOSE 8001
+EXPOSE 8080
 
 VOLUME ["/root/.config/dconf", "/root/.ssh"]
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
