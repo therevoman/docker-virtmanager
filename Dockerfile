@@ -9,10 +9,10 @@ ENV HOME=/root \
 	DISPLAY=:0.0 \
 #	DISPLAY_WIDTH=640 \
 #	DISPLAY_HEIGHT=480
-#	DISPLAY_WIDTH=1024 \
-#	DISPLAY_HEIGHT=768
-	DISPLAY_WIDTH=800 \
-	DISPLAY_HEIGHT=600
+	DISPLAY_WIDTH=1024 \
+	DISPLAY_HEIGHT=768
+#	DISPLAY_WIDTH=800 \
+#	DISPLAY_HEIGHT=600
 
 # x11vnc is in testing repo
 #RUN echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
